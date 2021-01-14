@@ -13,19 +13,24 @@ class Model():
 
 	def parseXML(self, root, seenElems, tabCounter):
  
+		try:
 
-		if len(list(root)) == 0:
-			for i in range(0, tabCounter):
-				self.file.write("\t")
-			self.file.write(root.tag + ": " + root.text + "\n")
-		else:
-			for i in range(0, tabCounter):
-				self.file.write("\t")
-			for i in range(0, len((list(root)))):
-				if (root not in seenElems):
-					self.file.write(root.tag + ": " + root.text)
-					tabCounter+=1
-					seenElems.append(root)
-				self.parseXML(list(root)[i], seenElems, tabCounter)
+			if len(list(root)) == 0:
+				for i in range(0, tabCounter):
+					self.file.write("\t")
+				self.file.write(root.tag + ": " + root.text + "\n")
+			else:
+				for i in range(0, tabCounter):
+					self.file.write("\t")
+				for i in range(0, len((list(root)))):
+					if (root not in seenElems):
+						self.file.write(root.tag + ": " + root.text)
+						tabCounter+=1
+						seenElems.append(root)
+					self.parseXML(list(root)[i], seenElems, tabCounter)
+
+		except ParseError:
+
+			self.file.write("\n \n \n THE XML FILE YOU INPUTTED IS NOT FORMMATED CORRECTLY, PLEASE TRY AGAIN")
 
 
