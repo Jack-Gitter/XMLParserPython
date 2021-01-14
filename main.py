@@ -1,5 +1,5 @@
 from xmlparsermodel import Model
-"""from xmlparserview import View"""
+
 
 model = None 
 while model == None: 
@@ -10,6 +10,3 @@ while model == None:
 	except FileNotFoundError:
 		print()
 		print("the file path that you have enetered is invalid \n")
-
-"""view = View()
-view.dispW()"""
