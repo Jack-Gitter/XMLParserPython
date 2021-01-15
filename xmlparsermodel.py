@@ -14,18 +14,26 @@ class Model():
 	def parseXML(self, root, seenElems, tabCounter):
  
 			if len(list(root)) == 0:
-				for i in range(0, tabCounter):
-					self.file.write("\t")
-				self.file.write(root.tag + ": " + root.text + "\n")
-			else:
-				for i in range(0, tabCounter):
-					self.file.write("\t")
-				for i in range(0, len((list(root)))):
-					if (root not in seenElems):
-						self.file.write(root.tag + ": " + root.text)
-						tabCounter+=1
-						seenElems.append(root)
-					self.parseXML(list(root)[i], seenElems, tabCounter)
+				if root not in seenElems:
+					for i in range(0, tabCounter):
+						self.file.write("\t")
+					self.file.write(root.tag + ": " + root.text + "\n")
+					seenElems.append(root)
+			else: 
+				if (root not in seenElems):
+					for i in range(0, tabCounter):
+						self.file.write("\t")
+					self.file.write(root.tag + ": " + root.text)
+					tabCounter+=1
+
+				for i in range(0, len(list(root))):
+					for j in range(0, tabCounter):
+						self.file.write("\t")
+					if list(root)[i] not in seenElems:
+						self.file.write(list(root)[i].tag + ": " + list(root)[i].text + "\n")
+						seenElems.append(list(root)[i])
+					self.parseXML(list(root)[i], seenElems, tabCounter+1)
+
 
 			
 
